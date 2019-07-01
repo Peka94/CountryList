@@ -8,11 +8,10 @@ $(() => {
     $('#loading').addClass('d-none');
   }
 
-
   var dataList;
 
   // rendezés főváros szerint
-  function sorterByCapital() {
+  function sortByCapital() {
     dataList = dataList.sort(function(a, b) {
       var x = a.capital.toLowerCase();
       var y = b.capital.toLowerCase();
@@ -21,7 +20,7 @@ $(() => {
   };
 
   // rendezés név szerint
-  function sorterByName() {
+  function sortByName() {
     dataList = dataList.sort(function(a, b) {
       var x = a.name.toLowerCase();
       var y = b.name.toLowerCase();
@@ -30,16 +29,21 @@ $(() => {
   };
 
   // rendezés szám szerint
-  function sorterByNumber() {
+  function sortByPopulation() {
     dataList = dataList.sort(function(a, b) {
-      return (a-b);
+      return a.population-b.population;
+    });
+  };
+
+  function sortByArea() {
+    dataList = dataList.sort(function(a, b) {
+      return a.area-b.area;
     });
   };
 
   // kiszervezett függvény, a get request válaszát betöltjük a táblázatba
   function refreshTable(dataList) {
     $('table tbody tr.prototype').siblings().remove();
-    hideLoading();
     let i = 1;
     dataList.forEach(country => {
       const $clone = $('table tbody tr.prototype').clone();
@@ -72,18 +76,44 @@ $(() => {
     });
   };
 
-  // Get lekérés a szerverről
-  };
-  
   showLoading();
+  // Get lekérés a szerverről
   $.ajax({
     url: 'https://restcountries.eu/rest/v2/all',
     success: function(data) {
       dataList = data;
+      hideLoading();
       refreshTable(dataList);
     },
     dataType: 'json',
     method: 'GET',
   });
 
+  // rendezés ország szerint
+  $('table tr i.country').click(function(){
+    $('table tbody tr.prototype').siblings().remove();
+    sortByName();
+    refreshTable(dataList);
+  });
+
+    // rendezés főváros szerint
+  $('table tr i.capital').click(function(){
+    $('table tbody tr.prototype').siblings().remove();
+    sortByCapital();
+    refreshTable(dataList);
+  });
+
+    // rendezés terület szerint
+  $('table tr i.area').click(function(){
+    $('table tbody tr.prototype').siblings().remove();
+    sortByArea();
+    refreshTable(dataList);
+  });
+
+    // rendezés populáció szerint
+  $('table tr i.population').click(function(){
+    $('table tbody tr.prototype').siblings().remove();
+    sortByPopulation();
+    refreshTable(dataList);
+  });
 });
