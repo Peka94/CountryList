@@ -4,55 +4,59 @@
 <head>
   <meta charset="utf-8">
   <title></title>
+  <!-- BOOTSTRAP & JQUERY -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!-- Saját script -->
   <script src="script.js"></script>
-  <script src="../../api.js"></script>
 
   <link href="css/fontawesome.min.css" rel="stylesheet">
   <link href="css/solid.min.css" rel="stylesheet">
-  <link rel="css/stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+  <div class="bg-img overlay">
+
+
   <div class="container">
-    <div class="row mt-5 mb-2 d-flex justify-content-center">
+    <div class="row mt-6 mb-6 d-flex justify-content-center">
       <h1>Ország nyilvántartás</h1>
     </div>
     <!-- Table -->
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped mt-4 mb-4">
       <thead>
         <tr>
-          <th scope="col">Országnév
+          <th scope="col-4">Országnév
             <a href="#"><i class="fas fa-sort-alpha-down country" title="Sorbarendezés az országok betűrendje szerint"></i></a>
           </th>
-          <th scope="col">Terület
+          <th scope="col-1">Terület
             <a href="#"><i class="fas fa-sort-numeric-down area" title="Sorbarendezés terület szerint"></i>
           </th>
-          <th scope="col">Népesség
+          <th scope="col-1">Népesség
             <a href="#"><i class="fas fa-sort-numeric-down population" title="Sorbarendezés népességszám szerint"></i>
           </th>
-          <th scope="col">Főváros
+          <th scope="col-1">Főváros
             <a href="#"><i class="fas fa-sort-alpha-down capital" title="Sorbarendezés a fővárosok betűrendje szerint"></i></a>
           </th>
-          <th scope="col">Térkép
+          <th scope="col-1">Térkép
             <i class="fas fa-globe-europe"></i>
           </th>
         </tr>
       </thead>
       <tbody>
+        <!-- A sorok prototípusa -->
         <tr data-id="" class="d-none prototype">
           <td class="country-name"></td>
           <td class="area"></td>
           <td class="population"></td>
           <td class="capital"></td>
-          <td class="position d-none"></td>
           <td>
-            <button type="button" class="btn btn-success btn-sm map-button" data-toggle="modal" data-target="#formModal" data-lat='' data-lng=''>Megjelenít
-            </button>
+            <!-- Button trigger modal-->
+            <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#myModal" data-lat='' data-lng=''>Megjelenítés</button>
           </td>
         </tr>
       </tbody>
@@ -65,22 +69,29 @@
       </div>
     </div>
   </div>
-  <!-- Modal -->
-  <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+  <!-- Modal-->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Térkép</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
-           <div id="map"></div>
+          <div class="row">
+            <div class="col-md-12 modal_body_map">
+              <div class="location-map" id="location-map">
+                <div style="width: 600px; height: 400px;" id="map_canvas"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key="+ YOUR_API_KEY>
-    </script>s
+  </div>
 </body>
 
+<!-- Google Maps Key-->
 </html>
