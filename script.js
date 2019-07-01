@@ -5,16 +5,16 @@ $(() => {
       $('table tbody tr.prototype').siblings().remove();
       let i = 1;
       dataList.forEach(country => {
-        const $clone = $('table tr.prototype').clone();
+        const $clone = $('table tbody tr.prototype').clone();
 
         // hozzáadjuk a data id hoz az id-t
         $clone.attr('data-id', i);
 
         // feltöltjük a táblázatot
-        $clone.children('.country-name').text(dataList.name);
-        $clone.children('.area').text(dataList.area);
-        $clone.children('.population').text(dataList.population);
-        $clone.children('.capital').text(dataList.capital);
+        $clone.children('.country-name').text(country.name);
+        $clone.children('.area').text(country.area);
+        $clone.children('.population').text(country.population);
+        $clone.children('.capital').text(country.capital);
         // levesszük a klónunkról a d-none-t, illetve a prototype-t
         $clone.removeClass('d-none prototype')
         $('table tbody').append($clone);
