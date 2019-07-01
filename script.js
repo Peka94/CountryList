@@ -1,5 +1,11 @@
 $(() => {
 
+  $('.country-name').click(function(){
+    console.log('aaaa');
+    //initMap($(this).children('position').text());
+
+  });
+  
   function showLoading() {
     $('#loading').removeClass('d-none');
   }
@@ -71,8 +77,6 @@ $(() => {
 
       let position = {lat: country.latlng[0], lng: country.latlng[1]};
       $clone.children('.position').text(position);
-      console.log(position.lat);
-      console.log(position.lng);
       // levesszük a klónunkról a d-none-t, illetve a prototype-t
       $clone.removeClass('d-none prototype')
       $('table tbody').append($clone);
@@ -120,13 +124,19 @@ $(() => {
     sortByPopulation();
     refreshTable(dataList);
   });
+
+
+
 });
-function initMap() {
+
+
+
+function initMap(position) {
   // The location
-  var uluru = {lat: -25.344, lng: 131.036};
+  //var uluru = {lat: -25.344, lng: 131.036};
   // The map centered
   var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: uluru});
+      document.getElementById('map'), {zoom: 4, center: position});
   // The marker
-  var marker = new google.maps.Marker({position: uluru, map: map});
+  var marker = new google.maps.Marker({position: position, map: map});
 };
