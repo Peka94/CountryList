@@ -12,7 +12,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
   <script src="script.js"></script>
-  <link rel="stylesheet" href="style.css">
+  <link href="css/fontawesome.min.css" rel="stylesheet">
+  <link href="css/solid.min.css" rel="stylesheet">
+  <link rel="css/stylesheet" href="style.css">
 </head>
 
 <body>
@@ -24,11 +26,21 @@
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th scope="col">Országnév</th>
-          <th scope="col">Terület</th>
-          <th scope="col">Népesség</th>
-          <th scope="col">Főváros</th>
-          <th scope="col">Térkép</th>
+          <th scope="col">Országnév
+            <a href="#"><i class="fas fa-sort-alpha-down" title="Sorbarendezés az országok betűrendje szerint"></i></a>
+          </th>
+          <th scope="col">Terület
+            <a href="#"><i class="fas fa-sort-numeric-down" title="Sorbarendezés terület szerint"></i>
+          </th>
+          <th scope="col">Népesség
+            <a href="#"><i class="fas fa-sort-numeric-down" title="Sorbarendezés népességszám szerint"></i>
+          </th>
+          <th scope="col">Főváros
+            <a href="#"><i class="fas fa-sort-alpha-down" title="Sorbarendezés a fővárosok betűrendje szerint"></i></a>
+          </th>
+          <th scope="col">Térkép
+            <i class="fas fa-globe-europe"></i>
+          </th>
         </tr>
       </thead>
       <tbody>
