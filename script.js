@@ -8,11 +8,42 @@ $(() => {
     $('#loading').addClass('d-none');
   }
 
+  var dataList;
+
+  // rendezés főváros szerint
+  function sortByCapital() {
+    dataList = dataList.sort(function(a, b) {
+      var x = a.capital.toLowerCase();
+      var y = b.capital.toLowerCase();
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+  };
+
+  // rendezés név szerint
+  function sortByName() {
+    dataList = dataList.sort(function(a, b) {
+      var x = a.name.toLowerCase();
+      var y = b.name.toLowerCase();
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+  };
+
+  // rendezés szám szerint
+  function sortByPopulation() {
+    dataList = dataList.sort(function(a, b) {
+      return a.population-b.population;
+    });
+  };
+
+  function sortByArea() {
+    dataList = dataList.sort(function(a, b) {
+      return a.area-b.area;
+    });
+  };
 
   // kiszervezett függvény, a get request válaszát betöltjük a táblázatba
   function refreshTable(dataList) {
     $('table tbody tr.prototype').siblings().remove();
-    hideLoading();
     let i = 1;
     dataList.forEach(country => {
       const $clone = $('table tbody tr.prototype').clone();
@@ -20,34 +51,71 @@ $(() => {
       // hozzáadjuk a data id hoz az id-t
       $clone.attr('data-id', i);
 
-      // feltöltjük a táblázatot
+      // feltöltjük a táblázatot, az üres cellákat kitöltjük
       $clone.children('.country-name').text(country.name);
-      $clone.children('.area').text(country.area);
-      $clone.children('.population').text(country.population);
-      $clone.children('.capital').text(country.capital);
+      if (country.area == null) {
+        $clone.children('.area').text('0');
+      } else {
+        $clone.children('.area').text(country.area);
+      }
+      if (country.population == "") {
+        $clone.children('.population').text(0);
+      } else {
+        $clone.children('.population').text(country.population);
+      }
+      if (country.capital == "") {
+        $clone.children('.capital').text('-');
+      } else {
+        $clone.children('.capital').text(country.capital);
+      }
+
       // levesszük a klónunkról a d-none-t, illetve a prototype-t
       $clone.removeClass('d-none prototype')
       $('table tbody').append($clone);
       i++;
     });
-
   };
 
   showLoading();
+  // Get lekérés a szerverről
   $.ajax({
     url: 'https://restcountries.eu/rest/v2/all',
     success: function(data) {
-      const dataList = data;
-      console.log(data);
+      dataList = data;
+      hideLoading();
       refreshTable(dataList);
     },
     dataType: 'json',
     method: 'GET',
+  });
 
-  }, );
+  // rendezés ország szerint
+  $('table tr i.country').click(function(){
+    $('table tbody tr.prototype').siblings().remove();
+    sortByName();
+    refreshTable(dataList);
+  });
 
+    // rendezés főváros szerint
+  $('table tr i.capital').click(function(){
+    $('table tbody tr.prototype').siblings().remove();
+    sortByCapital();
+    refreshTable(dataList);
+  });
 
+    // rendezés terület szerint
+  $('table tr i.area').click(function(){
+    $('table tbody tr.prototype').siblings().remove();
+    sortByArea();
+    refreshTable(dataList);
+  });
 
+    // rendezés populáció szerint
+  $('table tr i.population').click(function(){
+    $('table tbody tr.prototype').siblings().remove();
+    sortByPopulation();
+    refreshTable(dataList);
+  });
 });
 function initMap() {
   // The location
