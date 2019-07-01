@@ -1,21 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous">
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
   </script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
   <script src="script.js"></script>
-  </head>
-  <body>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-  </body>
+<body>
+  <div class="container">
+    <div class="row mt-5 mb-2 ml-1">
+      <h1>Ország nyilvántartás</h1>
+    </div>
+    <!-- Table -->
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Országnév</th>
+          <th scope="col">Terület</th>
+          <th scope="col">Népesség</th>
+          <th scope="col">Főváros</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-id="" class="d-none prototype">
+          <td class="country-name"></td>
+          <td class="area"></td>
+          <td class="population"></td>
+          <td class="capital"></td>
+          <td>
+            <button type="button" class="btn btn-success btn-sm map-button" data-toggle="modal" data-target="#formModal">Módosít
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h2 class="text-center mt-5" id="loading">Töltés...</h2>
+  </div>
+</body>
+
 </html>
