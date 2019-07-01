@@ -69,6 +69,10 @@ $(() => {
         $clone.children('.capital').text(country.capital);
       }
 
+      let position = {lat: country.latlng[0], lng: country.latlng[1]};
+      $clone.children('.position').text(position);
+      console.log(position.lat);
+      console.log(position.lng);
       // levesszük a klónunkról a d-none-t, illetve a prototype-t
       $clone.removeClass('d-none prototype')
       $('table tbody').append($clone);
