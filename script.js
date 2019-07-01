@@ -1,5 +1,14 @@
 $(() => {
 
+  function showLoading() {
+    $('#loading').removeClass('d-none');
+  }
+
+  function hideLoading() {
+    $('#loading').addClass('d-none');
+  }
+
+
   var dataList;
 
   // rendezés főváros szerint
@@ -30,6 +39,7 @@ $(() => {
   // kiszervezett függvény, a get request válaszát betöltjük a táblázatba
   function refreshTable(dataList) {
     $('table tbody tr.prototype').siblings().remove();
+    hideLoading();
     let i = 1;
     dataList.forEach(country => {
       const $clone = $('table tbody tr.prototype').clone();
@@ -63,6 +73,9 @@ $(() => {
   };
 
   // Get lekérés a szerverről
+  };
+  
+  showLoading();
   $.ajax({
     url: 'https://restcountries.eu/rest/v2/all',
     success: function(data) {
@@ -73,33 +86,4 @@ $(() => {
     method: 'GET',
   });
 
-  // A country cellára kattintva sorba rendezi
-  $('.country-column').click(function(){
-    $('table tbody tr.prototype').siblings().remove();
-    sorterByName();
-    refreshTable(dataList);
-  });
-
-  // A főváros cellára kattintva sorba rendezi
-  $('.capital-column').click(function(){
-    $('table tbody tr.prototype').siblings().remove();
-    sorterByCapital();
-    refreshTable(dataList);
-  });
-
-  // A populáció cellára kattintva sorba rendezi
-  $('.population-column').click(function(){
-    $('table tbody tr.prototype').siblings().remove();
-    sorterByNumber();
-    refreshTable(dataList);
-    console.log('pop')
-  });
-
-  // A terület cellára kattintva sorba rendezi
-  $('.area-column').click(function(){
-    $('table tbody tr.prototype').siblings().remove();
-    sorterByNumber();
-    refreshTable(dataList);
-    console.log('area')
-  });
 });
