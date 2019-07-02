@@ -50,26 +50,26 @@ $(() => {
   // rendezés szám szerint
   function sortByPopulationDown() {
     dataList = dataList.sort(function(a, b) {
-      return a.population-b.population;
+      return a.population - b.population;
     });
   };
 
   function sortByPopulationUp() {
     dataList = dataList.sort(function(a, b) {
-      return b.population-a.population;
+      return b.population - a.population;
     });
   };
 
   // rendezés terület szerint
   function sortByAreaDown() {
     dataList = dataList.sort(function(a, b) {
-      return a.area-b.area;
+      return a.area - b.area;
     });
   };
 
   function sortByAreaUp() {
     dataList = dataList.sort(function(a, b) {
-      return b.area-a.area;
+      return b.area - a.area;
     });
   };
 
@@ -84,8 +84,8 @@ $(() => {
       $clone.attr('data-id', i);
 
       //hozáadjuk a gombhoz a koordinátákat
-      $clone.children('td').children('.btn').attr('data-lat',(country.latlng[0]));
-      $clone.children('td').children('.btn').attr('data-lng',(country.latlng[1]));
+      $clone.children('td').children('.btn').attr('data-lat', (country.latlng[0]));
+      $clone.children('td').children('.btn').attr('data-lng', (country.latlng[1]));
 
       // feltöltjük a táblázatot, az üres cellákat kitöltjük
       $clone.children('.country-name').text(country.name);
@@ -117,7 +117,7 @@ $(() => {
   $.ajax({
     url: 'https://restcountries.eu/rest/v2/all',
     success: function(data) {
-      setTimeout(function(){
+      setTimeout(function() {
         dataList = data;
         hideLoading();
         refreshTable(dataList);
@@ -127,14 +127,14 @@ $(() => {
     method: 'GET',
   });
 
-    // rendezés főváros szerint
-  $('table tr i.capital').click(function(){
+  // rendezés főváros szerint
+  $('table tr i.capital').click(function() {
     deleteTr;
     if ($('table tr i.capital').hasClass('fa-sort-alpha-down')) {
       $('table tr i.capital').removeClass('fas fa-sort-alpha-down');
       $('table tr i.capital').addClass('fas fa-sort-alpha-up-alt');
       sortByCapitalDown();
-    }else{
+    } else {
       sortByCapitalUp();
       $('table tr i.capital').removeClass('fas fa-sort-alpha-up-alt');
       $('table tr i.capital').addClass('fas fa-sort-alpha-down');
@@ -142,14 +142,14 @@ $(() => {
     refreshTable(dataList);
   });
 
-    // rendezés ország szerint
-  $('table tr i.country').click(function(){
+  // rendezés ország szerint
+  $('table tr i.country').click(function() {
     deleteTr;
     if ($('table tr i.country').hasClass('fa-sort-alpha-down')) {
       $('table tr i.country').removeClass('fas fa-sort-alpha-down');
       $('table tr i.country').addClass('fas fa-sort-alpha-up-alt');
       sortByNameDown();
-    }else{
+    } else {
       $('table tr i.country').removeClass('fas fa-sort-alpha-up-alt');
       $('table tr i.country').addClass('fas fa-sort-alpha-down');
       sortByNameUp();
@@ -158,13 +158,13 @@ $(() => {
   });
 
   // rendezés terület szerint
-  $('table tr i.area').click(function(){
+  $('table tr i.area').click(function() {
     deleteTr;
     if ($('table tr i.area').hasClass('fa-sort-numeric-down')) {
       $('table tr i.area').removeClass('fa-sort-numeric-down');
       $('table tr i.area').addClass('fa-sort-numeric-up-alt');
       sortByAreaDown();
-    }else{
+    } else {
       $('table tr i.area').removeClass('fa-sort-numeric-up-alt');
       $('table tr i.area').addClass('fa-sort-numeric-down');
       sortByAreaUp();
@@ -172,47 +172,47 @@ $(() => {
     refreshTable(dataList);
   });
 
-    // rendezés populáció szerint
-    $('table tr i.population').click(function(){
-      deleteTr;
-      if ($('table tr i.population').hasClass('fa-sort-numeric-down')) {
-        $('table tr i.population').removeClass('fa-sort-numeric-down');
-        $('table tr i.population').addClass('fa-sort-numeric-up-alt');
-        sortByPopulationDown();
-      }else{
-        $('table tr i.population').removeClass('fa-sort-numeric-up-alt');
-        $('table tr i.population').addClass('fa-sort-numeric-down');
-        sortByPopulationUp();
-      }
-      refreshTable(dataList);
-    });
+  // rendezés populáció szerint
+  $('table tr i.population').click(function() {
+    deleteTr;
+    if ($('table tr i.population').hasClass('fa-sort-numeric-down')) {
+      $('table tr i.population').removeClass('fa-sort-numeric-down');
+      $('table tr i.population').addClass('fa-sort-numeric-up-alt');
+      sortByPopulationDown();
+    } else {
+      $('table tr i.population').removeClass('fa-sort-numeric-up-alt');
+      $('table tr i.population').addClass('fa-sort-numeric-down');
+      sortByPopulationUp();
+    }
+    refreshTable(dataList);
+  });
 
   function initializeGMap(lat, lng) {
-      myLatlng = new google.maps.LatLng(lat, lng);
-      var myOptions = {
-        zoom: 5,
-        zoomControl: true,
-        center: myLatlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-      map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-      myMarker = new google.maps.Marker({
-        position: myLatlng
-      });
-      myMarker.setMap(map);
-    }
-
-    // Re-init map before show modal
-    $('#myModal').on('show.bs.modal', function(event) {
-      var button = $(event.relatedTarget);
-      initializeGMap(button.data('lat'), button.data('lng'));
-      $("#location-map").css("width", "100%");
-      $("#map_canvas").css("width", "100%");
+    myLatlng = new google.maps.LatLng(lat, lng);
+    var myOptions = {
+      zoom: 5,
+      zoomControl: true,
+      center: myLatlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    myMarker = new google.maps.Marker({
+      position: myLatlng
     });
+    myMarker.setMap(map);
+  }
 
-    // Trigger map resize event after modal shown
-    $('#myModal').on('shown.bs.modal', function() {
-      google.maps.event.trigger(map, "resize");
-      map.setCenter(myLatlng);
-    });
+  // Re-init map before show modal
+  $('#myModal').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget);
+    initializeGMap(button.data('lat'), button.data('lng'));
+    $("#location-map").css("width", "100%");
+    $("#map_canvas").css("width", "100%");
+  });
+
+  // Trigger map resize event after modal shown
+  $('#myModal').on('shown.bs.modal', function() {
+    google.maps.event.trigger(map, "resize");
+    map.setCenter(myLatlng);
+  });
 });
