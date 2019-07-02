@@ -2,10 +2,9 @@ $(() => {
   var map = null;
   var myMarker;
   var myLatlng;
-
-
   const deleteTr = $('table tbody tr.prototype').siblings().remove();
   var dataList;
+
   function showLoading() {
     $('#loading').removeClass('d-none');
   }
@@ -84,6 +83,10 @@ $(() => {
       // hozzáadjuk a data id hoz az id-t
       $clone.attr('data-id', i);
 
+      //hozáadjuk a gombhoz a koordinátákat
+      $clone.children('td').children('.btn').attr('data-lat',(country.latlng[0]));
+      $clone.children('td').children('.btn').attr('data-lng',(country.latlng[1]));
+
       // feltöltjük a táblázatot, az üres cellákat kitöltjük
       $clone.children('.country-name').text(country.name);
       if (country.area == null) {
@@ -101,8 +104,7 @@ $(() => {
       } else {
         $clone.children('.capital').text(country.capital);
       }
-      $clone.children('td').children('.btn').attr('data-lat',(country.latlng[0]));
-      $clone.children('td').children('.btn').attr('data-lng',(country.latlng[1]));
+
       // levesszük a klónunkról a d-none-t, illetve a prototype-t
       $clone.removeClass('d-none prototype')
       $('table tbody').append($clone);
@@ -115,9 +117,11 @@ $(() => {
   $.ajax({
     url: 'https://restcountries.eu/rest/v2/all',
     success: function(data) {
-      dataList = data;
-      hideLoading();
-      refreshTable(dataList);
+      setTimeout(function(){
+        dataList = data;
+        hideLoading();
+        refreshTable(dataList);
+      }, 1000);
     },
     dataType: 'json',
     method: 'GET',
